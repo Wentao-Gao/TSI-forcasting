@@ -38,7 +38,6 @@ from sklearn.linear_model import LinearRegression
 
 
 def fit_linear(train_features, train_y, valid_features, valid_y, MAX_SAMPLES=100000):
-    # 如果训练集太大，则采样最多 MAX_SAMPLES 个样本
     if train_features.shape[0] > MAX_SAMPLES:
         split = train_test_split(
             train_features, train_y,
@@ -53,7 +52,6 @@ def fit_linear(train_features, train_y, valid_features, valid_y, MAX_SAMPLES=100
         )
         valid_features, _, valid_y, _ = split
 
-    # 训练线性回归模型
     lr = LinearRegression().fit(train_features, train_y)
 
     return lr
@@ -62,7 +60,6 @@ from sklearn.kernel_ridge import KernelRidge
 
 
 def fit_kernel_ridge(train_features, train_y, valid_features, valid_y, MAX_SAMPLES=100000):
-    # 如果训练集太大，就采样最多 MAX_SAMPLES 个样本
     if train_features.shape[0] > MAX_SAMPLES:
         split = train_test_split(
             train_features, train_y,
@@ -77,14 +74,12 @@ def fit_kernel_ridge(train_features, train_y, valid_features, valid_y, MAX_SAMPL
         )
         valid_features, _, valid_y, _ = split
 
-    # 定义一组可能的 alpha（正则化参数）和 gamma（用于某些核函数的参数）
     alphas = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
     gammas = [0.1, 0.01, 0.001, 0.0001]
 
     best_score = float("inf")
     best_alpha, best_gamma = None, None
 
-    # 交叉验证，找到最佳的 alpha 和 gamma
     for alpha in alphas:
         for gamma in gammas:
             kr = KernelRidge(alpha=alpha, kernel='rbf', gamma=gamma)
@@ -96,7 +91,6 @@ def fit_kernel_ridge(train_features, train_y, valid_features, valid_y, MAX_SAMPL
                 best_score = score
                 best_alpha, best_gamma = alpha, gamma
 
-    # 使用最佳的 alpha 和 gamma 重新训练模型
     kr = KernelRidge(alpha=best_alpha, kernel='rbf', gamma=best_gamma)
     kr.fit(train_features, train_y)
 
