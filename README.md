@@ -1,4 +1,4 @@
-# This is for the IJCAI paper
+# This is for the ECAI paper
 
 ## dataset 
 
