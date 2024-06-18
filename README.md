@@ -64,3 +64,34 @@ The results, as depicted in table \ref{tab:predictor}, illustrate that our model
 
 The ablation study underscores the distinct advantages of our model, especially when integrated with ridge regression, highlighting its effectiveness in extracting vital information from the data. This demonstrates our model's significance as a powerful tool for multivariate time series forecasting, offering substantial enhancements over conventional methods and setting a new benchmark in the field.
 
+
+
+## Details on Baselines
+
+Results on TS2Vec, TNC, CoST, Informer, LogTrans, and TCN are based on our reproduction.
+
+- **TS2Vec**: TS2Vec, a recent innovation, presents a universal framework for learning time series representations. It utilizes contrastive learning in a hierarchical structure across augmented context views, focusing on learning representations at the timestamp level. We utilized the framework as provided in their open-source repository, adhering to the default hyper-parameters recommended in their paper. GitHub: [TS2Vec](https://github.com/yuezhihan/ts2vec)
+
+- **TNC**: Temporal Neighborhood Coding (TNC) is a self-supervised framework that emphasizes the temporal neighborhood structure within time series. It effectively captures temporal dynamics by analyzing patterns of similarity and dissimilarity. We use the encoder of TS2Vec rather than their original encoders (CNN and RNN) as its backbone. Previous work has proven that this would have better performance than the original, as this can be attributed to the adaptive receptive fields of dilated convolutions, which better fit datasets from various scales. GitHub: [TNC](https://github.com/sanatonek/TNC_representation_learning)
+
+- **CoST**: CoST employs a transformer-based architecture, combined with the principles of contrastive learning, to effectively process time series data. This method is particularly adept at identifying and understanding long-range dependencies within the data, a crucial aspect in time series analysis. CoST's design allows for a nuanced approach to pattern recognition, enhancing its utility in forecasting and anomaly detection tasks. We followed the original paper's settings for this model in each dataset. GitHub: [CoST](https://github.com/salesforce/CoST)
+
+- **Informer**: The Informer model, known for its efficiency in time series forecasting, is designed for long sequence time series forecasting, previously held the status of state-of-the-art (SOTA) on ETT datasets. Its implementation is accessible through the open-source repository available at GitHub: [Informer](https://github.com/zhouhaoyi/Informer2020). For each dataset reproduction setting, we followed the experiment settings described in our paper.
+
+- **LogTrans**: LogTrans modifies the transformer model for long sequence forecasting by implementing a logarithmic distance-based self-attention mechanism. This method balances computational efficiency with the ability to capture long-range dependencies. We use a modified version of a third-party implementation. GitHub: [LogTrans](https://github.com/mlpotter/Transformer_Time_Series). The embedding vector size is set to 256, and the kernel size for casual convolutions is 9. We stack three layers for their Transformer.
+
+- **TCN**: Temporal Convolutional Networks (TCN) are known for their simplicity and effectiveness in sequence modeling for time series data. They utilize causal convolutions and can handle variable-length input sequences. GitHub: [TCN](https://github.com/locuslab/TCN). We are using the model which is structured with ten residual blocks stacked atop our backbone architecture, each featuring a hidden size of 64. We have set the maximum number of training epochs to 100 and use a learning rate of 0.001. All other parameters are retained as the default values specified in our code.
+
+## More Forecasting Results
+
+As depicted in Figure 1, the comparative analysis conducted between the TSI, CoST, and TS2Vec models revealed that the TSI model demonstrated enhanced accuracy, especially within the sample index ranges of 10-20 and 30-40. The TSI model's predictions closely mirrored the actual observations, contrasting with the CoST and TS2Vec models, which exhibited greater deviation at the data's extremities, thereby diminishing their precision. The TSI model's responsiveness was notably effective, swiftly adjusting to the data's fluctuations and signaling a more agile adaptation mechanism in comparison to the CoST model, which showed a tangible lag in its response to the time series' directional shifts.
+
+In Figure 2, a comprehensive comparative analysis conducted on the ETTh1 dataset with 500 sample indices indicated that the TSI model displayed superior accuracy, particularly in the sample index ranges of 10-20 and 30-40. This model's predictions were closely aligned with actual observations, outperforming the CoST and TS2Vec models, which showed greater deviation at extreme data points. The TSI model's responsiveness to fluctuations in the data was remarkable, indicating a more agile adaptation mechanism when compared to the CoST model, which revealed a noticeable lag in response to directional shifts in the time series.
+
+<img width="548" alt="截屏2024-06-18 下午11 04 25" src="https://github.com/Wentao-Gao/TSI-forcasting/assets/77952995/37e6f7cd-6d30-40c3-89f5-eb1d9c869ca5">
+
+
+<img width="525" alt="截屏2024-06-18 下午11 04 47" src="https://github.com/Wentao-Gao/TSI-forcasting/assets/77952995/218f70e6-ee41-41bb-874f-7f408df78464">
+
+
+
