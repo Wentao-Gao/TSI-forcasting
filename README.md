@@ -53,7 +53,7 @@ In our ablation study, we dissected the impact of different components within ou
 Within the multivariate framework, the TSI component markedly surpassed the baseline Independent component, evidenced by an improvement in MSE from 1.000 to 0.622 and in MAE from 0.748 to 0.571. This significant enhancement underscores the utility of integrating various time series components to adeptly capture the complexities inherent in multivariate data dynamics. The ablation study's findings advocate for a holistic approach in time series analysis, particularly highlighting the superior performance achieved through the TSI component in multivariate settings.
 
 2. For predictors
-3. 
+
 <img width="563" alt="截屏2024-06-18 下午10 15 54" src="https://github.com/Wentao-Gao/TSI-forcasting/assets/77952995/9f5e6279-a3b7-4c86-9be5-bd2377190c64">
 
 In this ablation study, our objective was to evaluate the effectiveness of various regression models in capturing essential information within multivariate time series data. Through a comprehensive comparison of different models, we highlighted the superior capability of our model in extracting critical insights, as demonstrated by its outstanding performance against traditional regression techniques.
